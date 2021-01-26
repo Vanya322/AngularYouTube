@@ -1,0 +1,40 @@
+
+<div class="flex_main">
+  <div class="block">
+    <h1>YouTube channel Seach</h1>
+      <div class="flex">
+        <p>Поиск по названию</p>
+        <input class="searchString" type="text" [(ngModel)]="searchStr">
+      </div>
+      <div class="flex">
+        <p>Отсортировать по выбранным:</p>
+        <button (click)="SortElems = !SortElems">
+          <span class="headlng lnr lnr-checkmark-circle"></span>
+        </button>
+      </div>
+      <div class="flex">
+        <p>Коллчество загруженных видео {{resValueStr}}</p>
+        <input type="text" [(ngModel)]="countVideos">
+        <button (click)="requestList();">Загрузить</button>
+      </div>
+    
+    <br><br>
+    <ul *ngFor="let channel of channelsArray | search:searchStr" 
+      [class.sortElemsDNone]="!SortElems && !channel.check">
+      <div class="flex">
+
+        <span class="lnr lnr-checkmark-circle"
+        [class.image-green]="channel.check"
+        (click)="channel.check = !channel.check"></span>
+
+        <a target="blank" href="https://www.youtube.com/channel/{{channel.channelId}}">
+          <h1>{{channel.channelTitle}}</h1>
+        </a>
+      </div>
+    
+      <a target="blank" href="https://www.youtube.com/watch?v={{channel.videoId}}">
+        <img width="320" height="180" class="block" src="{{channel.videoImg}}"/>
+      </a>
+    </ul>
+  </div>
+</div>
