@@ -1,0 +1,79 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+<section class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="title">
+          <h1>YouTube channel Seach</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="main">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="block_fixed">
+          <div class="cat flex col-md-4">
+            <div class="block">
+              <p>введите название </p>
+              <input class="searchString" type="text" [(ngModel)]="searchCategory">
+            </div>
+            <div class="block">
+              <p>Коллчество загруженных видео: <span class="red">{{resValueStr}}</span> </p>
+              <input class="searchString" type="text" [(ngModel)]="countVideos">
+            </div>        
+            <br>
+            <button class="btn_search" (click)="requestList();">Загрузить</button>
+          </div>
+          <div class="cat col-md-4">
+            <p>Поиск по совпадению</p>
+            <input class="searchString" type="text" [(ngModel)]="searchStr">
+          </div>
+          <div class="cat col-md-4">
+            <p>Отсортировать по выбранным:</p>
+            <button class="btn_sort" (click)="SortElems = !SortElems">
+              <span class="head-lng lnr lnr-checkmark-circle"></span>
+            </button>
+          </div>
+        </div>       
+      </div>
+      <div class="col-md-8">
+        <div class="video-list">
+          <div class="row">
+            <div class="col-md-4" *ngFor="let channel of channelsArray | search:searchStr" 
+            [class.sortElemsDNone]="!SortElems && !channel.check">
+            <span class="btn_sort lnr lnr-checkmark-circle"
+              [class.image-green]="channel.check"
+              (click)="channel.check = !channel.check"></span>
+  
+            <p class="title-channel">
+              <a 
+              target="blank" 
+              href="https://www.youtube.com/channel/{{channel.channelId}}">
+              {{channel.channelTitle}}
+              </a> 
+            </p>           
+  
+            <a target="blank" href="https://www.youtube.com/watch?v={{channel.videoId}}">
+              <img width="320" height="180" class="block" src="{{channel.videoImg}}"/>
+            </a>
+            <p class="video-name">
+              <a target="blank" href="https://www.youtube.com/watch?v={{channel.videoId}}">
+                {{channel.videoName}}
+              </a>
+            </p>
+            
+  
+          </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
